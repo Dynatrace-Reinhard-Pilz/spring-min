@@ -1,6 +1,8 @@
 package springmin;
 
 import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,26 +19,34 @@ public class Application {
     
     @RequestMapping("/")
     public String index() {
-    	StringBuilder sb = new StringBuilder();
-        sb.append("Greetings from Spring Boot (2)!").append("\n");
-        dump(new File("/opt/dynatrace"), sb, "");
-        return sb.toString();
+    	try (StringWriter sw = new StringWriter()) {
+        	try (PrintWriter pw = new PrintWriter(sw)) {
+        		pw.println("Greetings from Spring Boot (3)!");
+                dump(new File("/opt/dynatrace"), pw, "");
+                pw.flush();
+                sw.flush();
+                return sw.getBuffer().toString();
+        	}
+    	} catch (Throwable t) {
+    		// ignore
+    		return t.getMessage();
+    	}
     }
     
-    private static void dump(File file, StringBuilder sb, String indent) {
+    private static void dump(File file, PrintWriter pw, String indent) {
     	if (file == null) {
     		return;
     	}
     	if (!file.exists()) {
-    		sb.append(file.toString()).append(" does not exist").append("\n");
+    		pw.println(file.toString() + " does not exist");
     		return;
     	}
-    	sb.append(file.getAbsolutePath()).append("\n");
+    	pw.println(file.getAbsolutePath());
     	if (file.isDirectory()) {
     		File[] files = file.listFiles();
     		if (files != null) {
     			for (File child : files) {
-					dump(child, sb, indent + "  ");
+					dump(child, pw, indent + "  ");
 				}
     		}
     	}
