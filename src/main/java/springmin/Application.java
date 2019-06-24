@@ -19,12 +19,27 @@ public class Application {
     public String index() {
     	StringBuilder sb = new StringBuilder();
         sb.append("Greetings from Spring Boot (2)!").append("\n");
-        File dir = new File("/opt/dynatrace");
-        File[] files = dir.listFiles();
-        for (File file : files) {
-        	sb.append(file.getAbsolutePath()).append("\n");
-		}
+        dump(new File("/opt/dynatrace"), sb, "");
         return sb.toString();
+    }
+    
+    private static void dump(File file, StringBuilder sb, String indent) {
+    	if (file == null) {
+    		return;
+    	}
+    	if (!file.exists()) {
+    		sb.append(file.toString()).append(" does not exist").append("\n");
+    		return;
+    	}
+    	sb.append(file.getAbsolutePath()).append("\n");
+    	if (file.isDirectory()) {
+    		File[] files = file.listFiles();
+    		if (files != null) {
+    			for (File child : files) {
+					dump(child, sb, indent + "  ");
+				}
+    		}
+    	}
     }
 
 }
