@@ -55,11 +55,6 @@
 			  	<to>
 			  		<image>gcr.io/kafka-cluster-2/spring-min</image>
 			  	</to>
-				  <extraDirectories>
-				    <paths>
-				    	<path>src/main/jib/opt/dynatrace/oneagent/plugin_deployment</path>
-				    </paths>
-				  </extraDirectories>
 			  </configuration>
 			  <executions>
 			    <execution>
