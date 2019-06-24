@@ -24,7 +24,7 @@ public class Application {
         		pw.println("<style>li { font-family: Courier New }</style>");
         		pw.println("Greetings from Spring Boot (3)!");
         		pw.println("<ul>");
-                dump(new File("/opt/dunatrace"), pw, "");
+                dump(new File("/opt/dynatrace"), pw, "");
         		pw.println("</ul>");
                 pw.flush();
                 sw.flush();
