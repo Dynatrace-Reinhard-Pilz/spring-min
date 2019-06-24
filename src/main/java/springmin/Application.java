@@ -22,7 +22,9 @@ public class Application {
     	try (StringWriter sw = new StringWriter()) {
         	try (PrintWriter pw = new PrintWriter(sw)) {
         		pw.println("Greetings from Spring Boot (3)!");
+        		pw.println("<ul>");
                 dump(new File("/opt/dynatrace"), pw, "");
+        		pw.println("</ul>");
                 pw.flush();
                 sw.flush();
                 return sw.getBuffer().toString();
@@ -38,18 +40,21 @@ public class Application {
     		return;
     	}
     	if (!file.exists()) {
-    		pw.println(file.toString() + " does not exist");
+    		pw.println("<li>" + file.toString() + " does not exist</li>");
     		return;
     	}
-    	pw.println(file.getAbsolutePath());
+    	pw.println("<li>" + file.getAbsolutePath());
     	if (file.isDirectory()) {
     		File[] files = file.listFiles();
     		if (files != null) {
+    			pw.println("<ul>");
     			for (File child : files) {
 					dump(child, pw, indent + "  ");
 				}
+    			pw.println("</ul>");
     		}
     	}
+    	pw.println("</li>");
     }
 
 }
