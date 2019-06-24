@@ -1,5 +1,7 @@
 package springmin;
 
+import java.io.File;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +17,14 @@ public class Application {
     
     @RequestMapping("/")
     public String index() {
-        return "Greetings from Spring Boot (2)!";
+    	StringBuilder sb = new StringBuilder();
+        sb.append("Greetings from Spring Boot (2)!").append("\n");
+        File dir = new File("/opt/dynatrace");
+        File[] files = dir.listFiles();
+        for (File file : files) {
+        	sb.append(file.getAbsolutePath()).append("\n");
+		}
+        return sb.toString();
     }
 
 }
