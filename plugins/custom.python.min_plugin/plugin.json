@@ -1,0 +1,56 @@
+{
+  "name": "custom.python.min_plugin",
+  "version": "1.5",
+  "type": "python",
+  "entity": "PROCESS_GROUP_INSTANCE",
+  "processTypeNames": ["JAVA"],
+  "source": {
+    "package": "min_plugin",
+    "className": "MiniPlugin",
+    "install_requires": ["requests>=2.6.0"],
+    "activation": "Singleton"
+  },
+  "metrics": [
+    {
+      "timeseries": {
+        "key": "random",
+        "unit": "Count",
+        "displayname": "Random Value"
+      }
+    },
+    {
+      "timeseries": {
+        "key": "counter",
+        "unit": "Count",
+        "displayname":"Counter Value"
+      }
+    }
+  ],
+  "ui": {
+    "charts": [
+      {
+        "group": "Mini Plugin",
+        "title": "Random and counter",
+        "description": "Sample Metrics",
+        "series": [
+          {
+            "key": "random",
+            "aggregation": "avg",
+            "displayname": "Random",
+            "seriestype": "line"
+          },
+          {
+            "key": "counter",
+            "aggregation": "avg",
+            "displayname": "Counter",
+            "seriestype": "line",
+            "rightaxis": true
+          }
+        ]
+      }      
+    ]
+  },
+  "configUI": {
+    "displayName": "Mini Plugin"
+  }
+}
