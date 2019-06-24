@@ -21,6 +21,7 @@ public class Application {
     public String index() {
     	try (StringWriter sw = new StringWriter()) {
         	try (PrintWriter pw = new PrintWriter(sw)) {
+        		pw.println("<style>li { font-family: Courier New }</style>");
         		pw.println("Greetings from Spring Boot (3)!");
         		pw.println("<ul>");
                 dump(new File("/opt/dynatrace"), pw, "");
@@ -43,7 +44,7 @@ public class Application {
     		pw.println("<li>" + file.toString() + " does not exist</li>");
     		return;
     	}
-    	pw.println("<li>" + file.getAbsolutePath());
+    	pw.println("<li>" + file.getName());
     	if (file.isDirectory()) {
     		File[] files = file.listFiles();
     		if (files != null) {
